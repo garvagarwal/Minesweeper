@@ -20,5 +20,13 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+		//Game parameters
+		int board_width;
+		int board_height;
+		int num_mines;
+		int cell_width;
+		int cell_height;
+
+		std::vector<std::vector<ofImage>> cells;
 };
