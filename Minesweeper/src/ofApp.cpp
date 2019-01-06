@@ -3,6 +3,9 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
   ofSetWindowTitle("Minesweeper");
+
+  const int kWidth = 10;
+  const int kHeight = 10;
 }
 
 //--------------------------------------------------------------
