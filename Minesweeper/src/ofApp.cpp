@@ -37,7 +37,8 @@ void ofApp::draw(){
   //Draws cells
   for (int h = 0; h < board_height; ++h) {
     for (int w = 0; w < board_width; ++w) {
-      cells[w][h].draw(w * (cell_width + 1) + 150, h * (cell_height + 1) + 150);
+      cells[w][h].draw(w * (cell_width + kCellOffset) + kBoardOffset,
+                            h * (cell_height + kCellOffset) + kBoardOffset);
     }
   }
 }

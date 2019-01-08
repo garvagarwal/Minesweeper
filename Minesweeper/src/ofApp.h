@@ -27,6 +27,8 @@ class ofApp : public ofBaseApp{
 		int num_mines;
 		int cell_width;
 		int cell_height;
+		const int kCellOffset = 0;
+		const int kBoardOffset = 25;
 
 		std::vector<std::vector<ofImage>> cells;
 };
