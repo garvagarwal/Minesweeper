@@ -5,20 +5,20 @@ void ofApp::setup(){
   ofSetWindowTitle("Minesweeper");
 
   //Establishes easy board for now
-  board_width = 9;
-  board_height = 9;
-  num_mines = 10;
+  board_width_ = 9;
+  board_height_ = 9;
+  num_mines_ = 10;
 
   //Gets cell data
   ofImage data_cell("Cell.png");
-  cell_width = data_cell.getWidth();
-  cell_height = data_cell.getHeight();
+  cell_width_ = data_cell.getWidth();
+  cell_height_ = data_cell.getHeight();
 
   //Adds cells to create selected board
-  for (int h = 0; h < board_height; ++h) {
+  for (int h = 0; h < board_height_; ++h) {
     std::vector<ofImage> row;
 
-    for (int w = 0; w < board_width; ++w) {
+    for (int w = 0; w < board_width_; ++w) {
       ofImage cell("Cell.png");
       row.push_back(cell);
     }
@@ -35,10 +35,10 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
   //Draws cells
-  for (int h = 0; h < board_height; ++h) {
-    for (int w = 0; w < board_width; ++w) {
-      cells[w][h].draw(w * (cell_width + kCellOffset) + kBoardOffset,
-                            h * (cell_height + kCellOffset) + kBoardOffset);
+  for (int h = 0; h < board_height_; ++h) {
+    for (int w = 0; w < board_width_; ++w) {
+      cells[w][h].draw(w * (cell_width_ + CELL_OFFSET) + BOARD_OFFSET,
+                            h * (cell_height_ + CELL_OFFSET) + BOARD_OFFSET);
     }
   }
 }
@@ -65,7 +65,18 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+  int cellX;
+  int cellY;
 
+  if(x > BOARD_OFFSET && x < ofGetWindowWidth() - BOARD_OFFSET) {
+    cellX = (x - BOARD_OFFSET) / cell_width_;
+  }
+
+  if(y > BOARD_OFFSET && y < ofGetWindowHeight() - BOARD_OFFSET) {
+    cellY = (y - BOARD_OFFSET) / cell_height_;
+  }
+
+  cells[cellX][cellY].load("CellDown.png");
 }
 
 //--------------------------------------------------------------

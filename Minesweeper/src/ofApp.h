@@ -1,6 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofEvents.h"
+#include "cell.h"
+
+#define CELL_OFFSET 0
+#define BOARD_OFFSET 25
 
 class ofApp : public ofBaseApp{
 
@@ -22,13 +27,11 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		//Game parameters
-		int board_width;
-		int board_height;
-		int num_mines;
-		int cell_width;
-		int cell_height;
-		const int kCellOffset = 0;
-		const int kBoardOffset = 25;
+		int board_width_;
+		int board_height_;
+		int num_mines_;
+		int cell_width_;
+		int cell_height_;
 
 		std::vector<std::vector<ofImage>> cells;
 };
