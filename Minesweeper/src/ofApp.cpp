@@ -1,8 +1,12 @@
 #include "ofApp.h"
+#include <stdlib.h>
+#include <time.h>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
   ofSetWindowTitle("Minesweeper");
+
+  srand(static_cast<unsigned>(time(0)));
 
   // Establishes easy board for now
   board_width_ = 9;
@@ -23,7 +27,17 @@ void ofApp::setup(){
     cells.push_back(row);
   }
 
-  
+  for (int m = 0; m < num_mines_; ++m) {
+    int rand_x;
+    int rand_y;
+
+    do {
+      rand_x = rand() % board_width_;
+      rand_y = rand() % board_height_;
+    } while(cells[rand_y][rand_x]->hidden_state_ != "EmptyCell.png");
+
+    cells[rand_y][rand_x]->hidden_state_ = "RevealedMineCell.png";
+  }
 }
 
 //--------------------------------------------------------------
