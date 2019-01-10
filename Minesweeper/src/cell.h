@@ -1,7 +1,10 @@
-##ifndef CELL_H
+#ifndef CELL_H
 #define CELL_H
 
 #include "ofMain.h"
+
+#define CELL_WIDTH ofImage("Cell.png").getWidth()
+#define CELL_HEIGHT ofImage("Cell.png").getHeight()
 
 class Cell {
 public:
@@ -25,10 +28,12 @@ public:
   //Checks if point is in cell
   bool inside(float x, float y);
 
-  int cell_x_, cell_y_;
+  static int clicks_;
+  int x_pos_, y_pos_;         // Upper left corner pos of cell
+  std::string cur_state_, hidden_state_;         // Which image to display
 
 protected:
   bool bRegisteredEvents;
-}
+};
 
 #endif
