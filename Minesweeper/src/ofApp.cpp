@@ -19,8 +19,10 @@ void ofApp::setup(){
 
     for (int w = 0; w < board_width_; ++w) {
       Cell *cell = new Cell();
-      cell->setup(w * (CELL_WIDTH + CELL_OFFSET) + BOARD_OFFSET,
-                            h * (CELL_HEIGHT + CELL_OFFSET) + BOARD_OFFSET);
+      cell->setup(w * (CELL_WIDTH + CELL_OFFSET) + BOARD_HORIZONTAL_OFFSET,
+                  h * (CELL_HEIGHT + CELL_OFFSET) + BOARD_VERTICAL_OFFSET);
+
+      ofAddListener(cell->game_events, this, &ofApp::HandleGameEvents);
       row.push_back(cell);
     }
 
@@ -36,7 +38,7 @@ void ofApp::setup(){
       rand_y = rand() % board_height_;
     } while(cells[rand_y][rand_x]->hidden_state_ != "EmptyCell.png");
 
-    cells[rand_y][rand_x]->hidden_state_ = "RevealedMineCell.png";
+    cells[rand_y][rand_x]->hidden_state_ = "Mine.png";
   }
 }
 
@@ -51,6 +53,19 @@ void ofApp::draw(){
   for (int h = 0; h < board_height_; ++h) {
     for (int w = 0; w < board_width_; ++w) {
       cells[w][h]->draw();
+    }
+  }
+}
+
+// Handles the various game events
+void ofApp::HandleGameEvents(std::string & event) {
+  if (event == "clicked on mine") {
+    for (int h = 0; h < board_height_; ++h) {
+      for (int w = 0; w < board_width_; ++w) {
+        if (cells[h][w]->hidden_state_ == "Mine.png") {
+          cells[h][w]->cur_state_ = "RevealedMineCell.png";
+        }
+      }
     }
   }
 }

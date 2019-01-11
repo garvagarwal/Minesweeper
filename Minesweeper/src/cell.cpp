@@ -57,6 +57,11 @@ void Cell::mouseReleased(ofMouseEventArgs & args) {
   if (inside(args.x, args.y)) {
     if (cur_state_ == "Cell.png") {
       if (args.button == 0) {
+        if (hidden_state_ == "Mine.png") {
+          cur_state_ = "ExplodedMineCell.png";
+          std::string event("clicked on mine");
+          ofNotifyEvent(game_events, event);
+        }
         cur_state_ = hidden_state_;
       } else if (args.button == 2) {
         cur_state_ = "FlaggedCell.png";

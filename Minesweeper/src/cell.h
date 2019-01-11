@@ -5,13 +5,16 @@
 
 #define CELL_WIDTH ofImage("Cell.png").getWidth()
 #define CELL_HEIGHT ofImage("Cell.png").getHeight()
+#define CELL_OFFSET 0
+#define BOARD_VERTICAL_OFFSET 25
+#define BOARD_HORIZONTAL_OFFSET 25
 
 class Cell {
 public:
   Cell();
   ~Cell();
 
-  ofEvent<ofImage> clickedInside;
+  ofEvent<std::string> game_events;
 
   void setup(int x, int y);
   void draw();
