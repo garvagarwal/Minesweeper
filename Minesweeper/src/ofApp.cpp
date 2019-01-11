@@ -65,6 +65,10 @@ void ofApp::HandleGameEvents(std::string & event) {
         if (cells[h][w]->hidden_state_ == "Mine.png") {
           cells[h][w]->cur_state_ = "RevealedMineCell.png";
         }
+        if (cells[h][w]->cur_state_ == "FlaggedCell.png" &&
+            cells[h][w]->hidden_state_ != "Mine.png") {
+          cells[h][w]->cur_state_ = "FlaggedWrongCell.png";
+        }
       }
     }
   }
