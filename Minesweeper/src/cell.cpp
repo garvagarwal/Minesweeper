@@ -30,6 +30,10 @@ void Cell::clear(){
   }
 }
 
+void Cell::AssignNeighbors(int num_mines) {
+  neighboring_mines_ = num_mines;
+}
+
 void Cell::mouseMoved(ofMouseEventArgs & args) {}
 
 void Cell::mouseDragged(ofMouseEventArgs & args) {
@@ -55,6 +59,7 @@ void Cell::mousePressed(ofMouseEventArgs & args) {
 
 void Cell::mouseReleased(ofMouseEventArgs & args) {
   if (inside(args.x, args.y)) {
+    std::cout << neighboring_mines_ << '\n';
     if (cur_state_ == "Cell.png") {
       if (args.button == 0) {
         if (hidden_state_ == "Mine.png") {

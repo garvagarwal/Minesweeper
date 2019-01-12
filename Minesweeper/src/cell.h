@@ -19,6 +19,7 @@ public:
   void setup(int x, int y);
   void draw();
   void clear();
+  void AssignNeighbors(int num_mines);
 
   void mouseMoved(ofMouseEventArgs & args);
   void mouseDragged(ofMouseEventArgs & args);
@@ -33,6 +34,7 @@ public:
 
   static int clicks_;
   int x_pos_, y_pos_;         // Upper left corner pos of cell
+  int neighboring_mines_;      // Number of nearby mines
   std::string cur_state_, hidden_state_;         // Which image to display
 
 protected:
