@@ -8,6 +8,7 @@
 #define CELL_OFFSET 0
 #define BOARD_VERTICAL_OFFSET 25
 #define BOARD_HORIZONTAL_OFFSET 25
+#define TEXT_SCALE_FACTOR 1.5
 
 class Cell {
 public:
@@ -35,7 +36,8 @@ public:
   static int clicks_;
   int x_pos_, y_pos_;         // Upper left corner pos of cell
   int neighboring_mines_;      // Number of nearby mines
-  std::string cur_state_, hidden_state_;         // Which image to display
+  bool mine_;                   // If cell contains a mine
+  std::string cur_state_;         // Which image to display
 
 protected:
   bool bRegisteredEvents;

@@ -37,15 +37,14 @@ void ofApp::setup(){
     do {
       rand_x = rand() % board_width_;
       rand_y = rand() % board_height_;
-    } while(cells[rand_y][rand_x]->hidden_state_ != "EmptyCell.png");
+    } while(cells[rand_y][rand_x]->mine_);
 
-    cells[rand_y][rand_x]->hidden_state_ = "Mine.png";
+    cells[rand_y][rand_x]->mine_ = true;;
   }
 
   // Assign numbers based off nearby mines
   for (int h = 0; h < board_height_; ++h) {
     for (int w = 0; w < board_width_; ++w) {
-      std::cout << w << ", " << h << '\n';
       int mines = 0;
       bool left = false, right = false, top = false, bot = false;
 
@@ -55,35 +54,35 @@ void ofApp::setup(){
       if (h + 1 < board_height_) bot = true;
 
       if (left) {
-        mines += (cells[h][w - 1]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h][w - 1]->mine_ ? 1 : 0);
       }
 
       if (right) {
-        mines += (cells[h][w + 1]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h][w + 1]->mine_ ? 1 : 0);
       }
 
       if (top) {
-        mines += (cells[h - 1][w]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h - 1][w]->mine_ ? 1 : 0);
       }
 
       if (bot) {
-        mines += (cells[h + 1][w]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h + 1][w]->mine_ ? 1 : 0);
       }
 
       if (left && top) {
-        mines += (cells[h - 1][w - 1]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h - 1][w - 1]->mine_ ? 1 : 0);
       }
 
       if (left && bot) {
-        mines += (cells[h + 1][w - 1]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h + 1][w - 1]->mine_ ? 1 : 0);
       }
 
       if (right && top) {
-        mines += (cells[h - 1][w + 1]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h - 1][w + 1]->mine_ ? 1 : 0);
       }
 
       if (right && bot) {
-        mines += (cells[h + 1][w + 1]->hidden_state_ == "Mine.png" ? 1 : 0);
+        mines += (cells[h + 1][w + 1]->mine_ ? 1 : 0);
       }
 
       cells[h][w]->neighboring_mines_ = mines;
@@ -111,11 +110,11 @@ void ofApp::HandleGameEvents(std::string & event) {
   if (event == "clicked on mine") {
     for (int h = 0; h < board_height_; ++h) {
       for (int w = 0; w < board_width_; ++w) {
-        if (cells[h][w]->hidden_state_ == "Mine.png") {
+        if (cells[h][w]->mine_ && cells[h][w]->cur_state_ == "Cell.png") {
           cells[h][w]->cur_state_ = "RevealedMineCell.png";
         }
         if (cells[h][w]->cur_state_ == "FlaggedCell.png" &&
-            cells[h][w]->hidden_state_ != "Mine.png") {
+            !cells[h][w]->mine_) {
           cells[h][w]->cur_state_ = "FlaggedWrongCell.png";
         }
       }
